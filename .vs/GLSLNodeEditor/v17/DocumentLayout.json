@@ -1,0 +1,68 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\HACKSHIT\\source\\repos\\GLSLNodeEditor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D7F8C43D-7C07-453B-BC87-EDAE99B1B49B}|GLSLNodeEditor\\GLSLNodeEditor.vcxproj|C:\\Users\\HACKSHIT\\source\\repos\\GLSLNodeEditor\\GLSLNodeEditor\\Node.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D7F8C43D-7C07-453B-BC87-EDAE99B1B49B}|GLSLNodeEditor\\GLSLNodeEditor.vcxproj|solutionrelative:GLSLNodeEditor\\Node.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7F8C43D-7C07-453B-BC87-EDAE99B1B49B}|GLSLNodeEditor\\GLSLNodeEditor.vcxproj|C:\\Users\\HACKSHIT\\source\\repos\\GLSLNodeEditor\\GLSLNodeEditor\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D7F8C43D-7C07-453B-BC87-EDAE99B1B49B}|GLSLNodeEditor\\GLSLNodeEditor.vcxproj|solutionrelative:GLSLNodeEditor\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7F8C43D-7C07-453B-BC87-EDAE99B1B49B}|GLSLNodeEditor\\GLSLNodeEditor.vcxproj|C:\\Users\\HACKSHIT\\source\\repos\\3DEngine\\3DEngine\\imgui.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Node.h",
+              "DocumentMoniker": "C:\\Users\\HACKSHIT\\source\\repos\\GLSLNodeEditor\\GLSLNodeEditor\\Node.h",
+              "RelativeDocumentMoniker": "GLSLNodeEditor\\Node.h",
+              "ToolTip": "C:\\Users\\HACKSHIT\\source\\repos\\GLSLNodeEditor\\GLSLNodeEditor\\Node.h",
+              "RelativeToolTip": "GLSLNodeEditor\\Node.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-12T22:50:50.34Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "imgui.cpp",
+              "DocumentMoniker": "C:\\Users\\HACKSHIT\\source\\repos\\3DEngine\\3DEngine\\imgui.cpp",
+              "RelativeDocumentMoniker": "..\\3DEngine\\3DEngine\\imgui.cpp",
+              "ToolTip": "C:\\Users\\HACKSHIT\\source\\repos\\3DEngine\\3DEngine\\imgui.cpp",
+              "RelativeToolTip": "..\\3DEngine\\3DEngine\\imgui.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-12T21:58:49.258Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\HACKSHIT\\source\\repos\\GLSLNodeEditor\\GLSLNodeEditor\\main.cpp",
+              "RelativeDocumentMoniker": "GLSLNodeEditor\\main.cpp",
+              "ToolTip": "C:\\Users\\HACKSHIT\\source\\repos\\GLSLNodeEditor\\GLSLNodeEditor\\main.cpp",
+              "RelativeToolTip": "GLSLNodeEditor\\main.cpp",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAmwDsAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-12T21:56:11.397Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
