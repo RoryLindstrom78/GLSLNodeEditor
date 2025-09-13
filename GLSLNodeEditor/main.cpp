@@ -46,6 +46,9 @@ int main(int, char**)
     ImNodes::StyleColorsDark();
 
     bool show_demo = true;
+    
+    // Setup a new node
+    ConstantNode newNode = ConstantNode();
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -63,23 +66,10 @@ int main(int, char**)
         ImNodes::BeginNodeEditor();
 
         // --- Node 1 ---
-        ImNodes::BeginNode(1);
-        ImNodes::BeginNodeTitleBar();
-        ImGui::TextUnformatted("Example Node");
-        ImNodes::EndNodeTitleBar();
+        newNode.drawUI();
+        newNode.updateEveryFrame();
 
-        ImNodes::BeginInputAttribute(2);
-        ImGui::Text("Input");
-        ImNodes::EndInputAttribute();
 
-        ImNodes::BeginOutputAttribute(3);
-        ImGui::Indent(40);
-        ImGui::Text("Output");
-        ImNodes::EndOutputAttribute();
-        ImNodes::EndNode();
-
-        // A link between input (2) and output (3)
-        ImNodes::Link(4, 2, 3);
 
         ImNodes::EndNodeEditor();
 
@@ -96,6 +86,8 @@ int main(int, char**)
 
         glfwSwapBuffers(window);
     }
+
+    std::cout << newNode.getGLSL() << std::endl;
 
     // Cleanup
     ImNodes::DestroyContext();
