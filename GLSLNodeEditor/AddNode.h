@@ -4,19 +4,40 @@
 
 class AddNode : public Node {
 private:
-	Node* inputA = nullptr;
-	Node* inputB = nullptr;
-	glm::vec4 value;
-	int inputA_id;
-	int inputB_id;
+    int currentType = -1;
+    std::string typeName;
+    std::string varName;
+    Node* inputA = nullptr;
+    Node* inputB = nullptr;
+    glm::vec4 value;
+    int inputA_id;
+    int inputB_id;
 
 public:
-	AddNode() { 
-        id = counter; 
+    AddNode() {
+        id = counter;
         inputA_id = id * 10 + 1;
         inputB_id = id * 10 + 2;
+
+        varName = "const_" + std::to_string(counter);
+
         counter++;
     }
+
+    void updateEveryFrame() {
+        if (!inputA || !inputB) {
+            typeName = "float"; // default fallback
+            return;
+        }
+        std::string typeA = inputA->getTypeName();
+        std::string typeB = inputB->getTypeName();
+
+        if (typeA == typeB) typeName = typeA;
+        else if (typeA == "float") typeName = typeB;
+        else if (typeB == "float") typeName = typeB;
+        else std::cout << "error" << std::endl;
+    }
+
 
     std::vector<int> getInputIDs() override {
         return { inputA_id, inputB_id };
@@ -31,7 +52,10 @@ public:
         return inputA->getOutputVar();
     }
 
-	void drawUI() override {
+    void drawUI() override {
+        // First we'll call update every frame
+        updateEveryFrame();
+
         ImNodes::BeginNode(id);
 
         // -- Node title --
@@ -61,12 +85,16 @@ public:
         ImGui::EndGroup();
 
         ImNodes::EndNode();
-	}
+    }
+
+    std::string getTypeName() override {
+        return typeName;
+    }
 
     std::string getGLSL() override {
         std::string nameA = inputA ? inputA->getOutputVar() : "0.0";
         std::string nameB = inputB ? inputB->getOutputVar() : "0.0";
-        return nameA + " = " + nameA + " + " + nameB + ";";
+        return typeName + " " + varName + " " + " = " + nameA + " + " + nameB + ";";
     }
 };
 

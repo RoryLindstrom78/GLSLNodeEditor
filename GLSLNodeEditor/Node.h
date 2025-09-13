@@ -40,6 +40,8 @@ public:
 	// For getting the output of any node function
 	virtual std::string getOutputVar() = 0;
 
+	virtual std::string getTypeName() = 0;
+
 };
 
 
@@ -67,6 +69,9 @@ public:
 	}
 
 	void drawUI() override {
+		// First we'll call updateEveryFrame
+		//updateEveryFrame();
+
 		ImNodes::BeginNode(id);
 
 		// -- Node title Bar -- 
@@ -105,6 +110,10 @@ public:
 
 	std::string getOutputVar() {
 		return varName;
+	}
+
+	std::string getTypeName() override {
+		return typeName;
 	}
 
 	std::string getGLSL() override {
