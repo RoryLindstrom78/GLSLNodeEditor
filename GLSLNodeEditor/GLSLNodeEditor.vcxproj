@@ -149,6 +149,7 @@
     <None Include="..\..\3DEngine\3DEngine\imgui.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddNode.h" />
     <ClInclude Include="imnodes.h" />
     <ClInclude Include="imnodes_internal.h" />
     <ClInclude Include="Node.h" />

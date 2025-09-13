@@ -1,7 +1,6 @@
 #ifndef NODE_H
 #define NODE_H 
 
-#include <glm/glm.hpp>
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -14,22 +13,38 @@
 #include <unordered_map>
 #include <iostream>
 
+struct NodeLink {
+	int id;
+	int start_attr; // output attribute id
+	int end_attr; // input attribute id
+};
+
+
 class Node {
 public:
 	static int counter;
+	int id;
 
 	~Node() = default;
 
 	// Every node must be able to draw its UI and convert its values into GLSL code
 	virtual void drawUI() = 0;
 	virtual std::string getGLSL() = 0;
-	virtual void updateEveryFrame() = 0;
+
+	// Return all input attr IDs
+	virtual std::vector<int> getInputIDs() { return {}; }
+
+	// Set input pointer by index
+	virtual void setInput(int index, Node* node) {}
+
+	// For getting the output of any node function
+	virtual std::string getOutputVar() = 0;
+
 };
 
 
 class ConstantNode : public Node {
 private:
-	int id;
 	int currentType = -1;
 	std::string varName;
 	std::string typeName;
@@ -43,7 +58,7 @@ public:
 		id = counter++;
 	}
 
-	void updateEveryFrame() override {
+	void updateEveryFrame() {
 		// Update typeName string based on currentType
 		static const char* types[] = { "float", "vec2", "vec3", "vec4" };
 		if (currentType >= 0) {
@@ -86,6 +101,10 @@ public:
 		ImNodes::EndOutputAttribute();
 
 		ImNodes::EndNode();
+	}
+
+	std::string getOutputVar() {
+		return varName;
 	}
 
 	std::string getGLSL() override {

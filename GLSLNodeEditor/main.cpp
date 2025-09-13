@@ -3,9 +3,22 @@
 #include "imgui_impl_opengl3.h"
 #include "imnodes.h"
 #include "Node.h"
+#include "AddNode.h"
 
 #include <GLFW/glfw3.h>
 #include <stdio.h>
+#include <iostream>
+
+std::vector<NodeLink> links;       // all current connections
+std::vector<Node*> nodes;
+
+int nextNodeID = 1;
+int nextLinkID = 1;
+
+static void glfw_error_callback(int error, const char* description);
+Node* findNodeByOutputID(int outputID);
+void updateEveryFrame(std::vector<Node*>& nodes, const std::vector<NodeLink>& links);
+
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -48,7 +61,9 @@ int main(int, char**)
     bool show_demo = true;
     
     // Setup a new node
-    ConstantNode newNode = ConstantNode();
+    ConstantNode node1 = ConstantNode();
+    ConstantNode node2 = ConstantNode();
+    AddNode node3 = AddNode();
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -65,15 +80,30 @@ int main(int, char**)
 
         ImNodes::BeginNodeEditor();
 
+
         // --- Node 1 ---
-        newNode.drawUI();
-        newNode.updateEveryFrame();
+        node1.drawUI();
+        nodes.push_back(&node1);
+        node2.drawUI();
+        nodes.push_back(&node2);
+        node3.drawUI();
+        nodes.push_back(&node3);
 
-
+        int start_attr, end_attr;
+        for (const auto& link : links) {
+            ImNodes::Link(link.id, link.start_attr, link.end_attr);
+        }
 
         ImNodes::EndNodeEditor();
 
+        // poll new links
+        if (ImNodes::IsLinkCreated(&start_attr, &end_attr)) {
+            links.push_back({ nextLinkID++, start_attr, end_attr });
+        }
+
         ImGui::End(); // Node Editor window
+
+        updateEveryFrame(nodes, links);
 
         // Rendering
         ImGui::Render();
@@ -87,7 +117,11 @@ int main(int, char**)
         glfwSwapBuffers(window);
     }
 
-    std::cout << newNode.getGLSL() << std::endl;
+    std::cout << node3.getGLSL() << std::endl;
+
+    for (NodeLink link : links) {
+        std::cout << link.id << " " << link.start_attr << " " << link.end_attr << std::endl;
+    }
 
     // Cleanup
     ImNodes::DestroyContext();
@@ -99,5 +133,44 @@ int main(int, char**)
     glfwTerminate();
 
     return 0;
+}
+
+Node* findNodeByOutputID(int outputID) {
+    for (auto* node : nodes) {
+        if (node->id * 10 == outputID) // or however you define output attribute IDs
+            return node;
+    }
+    return nullptr;
+}
+
+void updateEveryFrame(std::vector<Node*>& nodes, const std::vector<NodeLink>& links) {
+    // Create a map: output attribute -> node
+    std::unordered_map<int, Node*> outputMap;
+    for (auto* node : nodes) {
+        outputMap[node->id * 10] = node; // assuming output attribute id = id * 10
+    }
+
+    // Reset all inputs
+    for (auto* node : nodes) {
+        auto inputIDs = node->getInputIDs();
+        for (int i = 0; i < inputIDs.size(); ++i) {
+            node->setInput(i, nullptr);
+        }
+    }
+
+    // Update input pointers based on links
+    for (const auto& link : links) {
+        Node* srcNode = outputMap[link.start_attr];
+        if (!srcNode) continue;
+
+        for (auto* node : nodes) {
+            auto inputIDs = node->getInputIDs();
+            for (int i = 0; i < inputIDs.size(); ++i) {
+                if (inputIDs[i] == link.end_attr) {
+                    node->setInput(i, srcNode);
+                }
+            }
+        }
+    }
 }
 
