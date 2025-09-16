@@ -6,6 +6,7 @@
 #include "AddNode.h"
 #include "ConstantNode.h"
 #include "MultiplyNode.h"
+#include "DivideNode.h"
 
 #include <GLFW/glfw3.h>
 #include <stdio.h>
@@ -65,7 +66,7 @@ int main(int, char**)
     // Setup a new node
     ConstantNode node1 = ConstantNode();
     ConstantNode node2 = ConstantNode();
-    MultiplyNode node3 = MultiplyNode();
+    DivideNode node3 = DivideNode();
 
     // Main loop
     while (!glfwWindowShouldClose(window))

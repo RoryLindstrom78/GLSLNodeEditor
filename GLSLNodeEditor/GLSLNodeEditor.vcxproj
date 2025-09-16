@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="AddNode.h" />
     <ClInclude Include="ConstantNode.h" />
+    <ClInclude Include="DivideNode.h" />
     <ClInclude Include="imnodes.h" />
     <ClInclude Include="imnodes_internal.h" />
     <ClInclude Include="MultiplyNode.h" />
