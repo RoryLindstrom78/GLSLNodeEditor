@@ -70,5 +70,11 @@
     <ClInclude Include="AddNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MultiplyNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

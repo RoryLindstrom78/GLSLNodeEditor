@@ -24,7 +24,7 @@ public:
         counter++;
     }
 
-    void updateEveryFrame() {
+    void updateTypeEveryFrame() {
         if (!inputA || !inputB) {
             typeName = "float"; // default fallback
             return;
@@ -32,7 +32,7 @@ public:
         std::string typeA = inputA->getTypeName();
         std::string typeB = inputB->getTypeName();
 
-        if (typeA == typeB) typeName = typeA;
+        if ((typeA) == typeB) typeName = typeA;
         else if (typeA == "float") typeName = typeB;
         else if (typeB == "float") typeName = typeB;
         else std::cout << "error" << std::endl;
@@ -49,12 +49,12 @@ public:
     }
 
     std::string getOutputVar() override {
-        return inputA->getOutputVar();
+        return varName;
     }
 
     void drawUI() override {
         // First we'll call update every frame
-        updateEveryFrame();
+        updateTypeEveryFrame();
 
         ImNodes::BeginNode(id);
 
@@ -94,7 +94,7 @@ public:
     std::string getGLSL() override {
         std::string nameA = inputA ? inputA->getOutputVar() : "0.0";
         std::string nameB = inputB ? inputB->getOutputVar() : "0.0";
-        return typeName + " " + varName + " " + " = " + nameA + " + " + nameB + ";";
+        return typeName + " " + varName + " = " + nameA + " + " + nameB + ";";
     }
 };
 

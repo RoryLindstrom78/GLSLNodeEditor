@@ -4,6 +4,8 @@
 #include "imnodes.h"
 #include "Node.h"
 #include "AddNode.h"
+#include "ConstantNode.h"
+#include "MultiplyNode.h"
 
 #include <GLFW/glfw3.h>
 #include <stdio.h>
@@ -63,7 +65,7 @@ int main(int, char**)
     // Setup a new node
     ConstantNode node1 = ConstantNode();
     ConstantNode node2 = ConstantNode();
-    AddNode node3 = AddNode();
+    MultiplyNode node3 = MultiplyNode();
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -83,7 +85,7 @@ int main(int, char**)
 
         // --- Node 1 ---
         node1.drawUI();
-        nodes.push_back(&node1);
+        nodes.push_back(&node1); // every node added must be added to the nodes vector
         node2.drawUI();
         nodes.push_back(&node2);
         node3.drawUI();
