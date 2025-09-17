@@ -13,6 +13,8 @@
 #include <unordered_map>
 #include <iostream>
 
+enum class VisitState { Unvisited, Visiting, Visited };
+
 struct NodeLink {
 	int id;
 	int start_attr; // output attribute id
@@ -24,6 +26,8 @@ class Node {
 public:
 	static int counter;
 	int id;
+	std::vector<Node*> inputs;
+	VisitState State = VisitState::Unvisited;
 
 	~Node() = default;
 

@@ -17,6 +17,8 @@ public:
         id = counter;
         inputA_id = id * 10 + 1;
         inputB_id = id * 10 + 2;
+        inputs.push_back(nullptr);
+        inputs.push_back(nullptr);
 
         varName = "const_" + std::to_string(counter);
 
@@ -43,8 +45,14 @@ public:
     }
 
     void setInput(int index, Node* node) override {
-        if (index == 0) inputA = node;
-        if (index == 1) inputB = node;
+        if (index == 0) {
+            inputA = node;
+            inputs[0] = node;
+        }
+        if (index == 1) {
+            inputB = node;
+            inputs[1] = node;
+        }
     }
 
     std::string getOutputVar() override {
@@ -93,7 +101,7 @@ public:
     std::string getGLSL() override {
         std::string nameA = inputA ? inputA->getOutputVar() : "0.0";
         std::string nameB = inputB ? inputB->getOutputVar() : "0.0";
-        return typeName + " " + varName + " = " + nameA + " / " + nameB + ";";
+        return typeName + " " + varName + " = " + nameA + " / " + nameB + ";\n";
     }
 };
 

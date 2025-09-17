@@ -76,13 +76,13 @@ public:
 		// Generate final string to be used for GLSL code 
 		// Example 'float <varName> = 
 		if (typeName == "float")
-			return "float " + varName + " = " + std::to_string(value.x) + ";";
+			return "float " + varName + " = " + std::to_string(value.x) + ";\n";
 		else if (typeName == "vec2")
-			return "vec2 " + varName + " = " + "vec2(" + std::to_string(value.x) + ", " + std::to_string(value.y) + ");";
+			return "vec2 " + varName + " = " + "vec2(" + std::to_string(value.x) + ", " + std::to_string(value.y) + ");\n";
 		else if (typeName == "vec3")
-			return "vec3" + varName + " = " + "vec3(" + std::to_string(value.x) + ", " + std::to_string(value.y) + ", " + std::to_string(value.z) + ");";
+			return "vec3" + varName + " = " + "vec3(" + std::to_string(value.x) + ", " + std::to_string(value.y) + ", " + std::to_string(value.z) + ");\n";
 		else if (typeName == "vec4")
-			return "vec4 " + varName + " = " + "vec4(" + std::to_string(value.x) + ", " + std::to_string(value.y) + ", " + std::to_string(value.z) + ", " + std::to_string(value.w) + ");";
+			return "vec4 " + varName + " = " + "vec4(" + std::to_string(value.x) + ", " + std::to_string(value.y) + ", " + std::to_string(value.z) + ", " + std::to_string(value.w) + ");\n";
 		return "";
 	}
 };

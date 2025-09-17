@@ -8,6 +8,8 @@
 #include "MultiplyNode.h"
 #include "DivideNode.h"
 
+
+#include <functional>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <iostream>
@@ -21,6 +23,7 @@ int nextLinkID = 1;
 static void glfw_error_callback(int error, const char* description);
 Node* findNodeByOutputID(int outputID);
 void updateEveryFrame(std::vector<Node*>& nodes, const std::vector<NodeLink>& links);
+std::vector<std::string> topologicalSort(const std::vector<Node*>& nodes);
 
 
 static void glfw_error_callback(int error, const char* description)
@@ -120,10 +123,10 @@ int main(int, char**)
         glfwSwapBuffers(window);
     }
 
-    std::cout << node3.getGLSL() << std::endl;
-
-    for (NodeLink link : links) {
-        std::cout << link.id << " " << link.start_attr << " " << link.end_attr << std::endl;
+    // Topologically Sort Nodes
+    std::vector<std::string> code = topologicalSort(nodes);
+    for (int i = 0; i < code.size(); i++) {
+        std::cout << code[i];
     }
 
     // Cleanup
@@ -177,3 +180,38 @@ void updateEveryFrame(std::vector<Node*>& nodes, const std::vector<NodeLink>& li
     }
 }
 
+std::vector<std::string> topologicalSort(const std::vector<Node*>& nodes) {
+    std::vector<std::string> code;
+
+    // Reset states before traversal
+    for (auto* node : nodes) {
+        node->State = VisitState::Unvisited;
+    }
+
+    // Local DFS function  
+    std::function<void(Node*)> dfs = [&](Node* node) {
+        if (node->State == VisitState::Visiting) {
+            std::cerr << "Cycle detected in DFS" << std::endl;
+            return;
+        }
+
+        if (node->State == VisitState::Visited) return;
+
+        node->State = VisitState::Visiting;
+
+        for (Node* input : node->inputs) {
+            if (input) dfs(input);
+        }
+
+        node->State = VisitState::Visited;
+        code.push_back(node->getGLSL());
+    };
+    
+    for (Node* node : nodes) {
+        if (node->State == VisitState::Unvisited) {
+            dfs(node);
+        }
+    }
+
+    return code;
+}
